@@ -1,4 +1,6 @@
-import React from "react";
+import React,{useContext} from "react";
+import "./Product.css"
+import ProductConsumer from "../Context/ProductConsumer";
 
 const productsArr = [
   {
@@ -27,18 +29,26 @@ const productsArr = [
 ];
 
 const Product = () => {
+
+  let {handleCart}=useContext(ProductConsumer);
+
   return(
-    <div className="d-flex flex-row bd-highlight mb-3">
-        <h1>Music</h1>
+    <div className="cardd">
+      <h1>Music</h1>
+      <div className="card-child">
         {
-            productsArr.map((item,index)=>(
-                <div key={index} >
-                    <h1>{item.title}</h1>
-                    <img src={item.imageUrl} alt={item.title}/>
-                    <p>{item.price}</p>
+          productsArr.map((item,index)=>(
+            <div className="card__child" key={index} >
+                <h3>{item.title}</h3>
+                <img src={item.imageUrl} alt={item.title}/>
+                <div className="price">
+                  <p>$ {item.price}</p>
+                  <button onClick={()=>handleCart(item)}>ADD TO CART</button>
                 </div>
-            ))
+            </div>
+          ))
         }
+      </div>
     </div>
   )
 };
