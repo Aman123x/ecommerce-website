@@ -1,5 +1,5 @@
 .cardd{
-  margin-top: 2rem;
+  margin-block: 2rem;
 }
 
 .cardd h1{
@@ -16,9 +16,6 @@
   margin: 0 10%;
 }
 
-.card__child{
-  /* width: 500px; */
-}
 
 .card__child h3{
   margin-bottom: 20px;

@@ -7,19 +7,19 @@
   top: -5px;
   right: -18px;
   padding: 0px 8px;
-  background-color:rgb(228, 54, 23);
+  background-color: rgb(228, 54, 23);
   color: white;
   border-radius: 5px;
   font-size: 20px;
 }
 
-.cart-container Button{
-    font-size: 20px;
-    font-weight: 600;
+.cart-container Button {
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.cart-container Button:hover{
-    color: tomato;
+.cart-container Button:hover {
+  color: tomato;
 }
 
 .heading {
@@ -93,6 +93,46 @@
   margin-bottom: 10px;
 }
 
-.onactive:hover{
-    color: tomato !important;
+.about {
+  background-image: url("../Assests/shopping.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 95vh;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about h1 {
+  text-align: center;
+  margin: 20px;
+  font-weight: 700;
+}
+
+.about_child {
+  width: 650px;
+  margin-top: 4rem;
+}
+
+.about_child p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.footer{
+    background-color: #56CCF2;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-block: 20px;
+}
+
+.footer-icon button{
+    background-color: transparent;
+    border: none;
+}
+
+.footer-icon img{
+    width: 40px;
+    height: 40px;
+    margin-left: 20px;
 }

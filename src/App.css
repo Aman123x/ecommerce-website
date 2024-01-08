@@ -1,2 +1,11 @@
-/* Product CSS */
+.onactive{
+    text-decoration: none;
+    font-size: large;
+    font-weight: 600;
+}
+
+.onactive:hover{
+    color: tomato !important;
+}
+
 
