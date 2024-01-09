@@ -47,7 +47,7 @@ const Cart = () => {
   }, 0);
 
   function handleAlert() {
-    cartItem !== 0 && window.alert("Thanks for purchasing with us!!!");
+    (TotalPrice !== 0) && window.alert("Thanks for purchasing with us!!!");
   }
 
   return (

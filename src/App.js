@@ -14,16 +14,16 @@ function App() {
     <ProductProvider>
       <Navbar className="bg-dark sticky-top" >
         <Container>
-            <Link to="/Home" className="text-white onactive">Home</Link>
+            <Link to="/" className="text-white onactive">Home</Link>
             <Link to="/Product" className="text-white onactive">Store</Link>
-            <Link to="/" className="text-white onactive">About</Link>
+            <Link to="/About" className="text-white onactive">About</Link>
           <Cart />
         </Container>
       </Navbar>
       <Routes>
-        <Route path='/Home' element={<Home />}/>
+        <Route path='/' element={<Home />}/>
         <Route path='/Product' element={<Product />}/>
-        <Route path='/' element={<About />}/>
+        <Route path='/About' element={<About />}/>
       </Routes>
       <Footer />
     </ProductProvider>
