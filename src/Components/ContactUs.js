@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import "./ContactUs.css"
 
 const ContactUs = () => {
 
@@ -41,9 +42,9 @@ const ContactUs = () => {
     }
 
   return (
-    <div>
-        <h3>If you have any query fill the form</h3>
-        <form onSubmit={(e)=>handleSubmit(e)}>
+    <div className='form_parent'>
+        <h3>User Form</h3>
+        <form className='form' onSubmit={(e)=>handleSubmit(e)}>
             <label>Name: </label>
             <input type="text"
                 onChange={(e)=>setName(e.target.value)}

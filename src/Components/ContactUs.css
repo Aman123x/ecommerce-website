@@ -1,0 +1,28 @@
+.form_parent{
+    width: 50%;
+    padding: 40px 40px;
+    margin: auto;
+    background-color: bisque;
+}
+
+.form_parent h3{
+    text-align: center;
+}
+
+.form{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+}
+
+.form button{
+    background-color: blue;
+    border: none;
+    padding: 5px;
+    color: white;
+    font-weight: 600;
+    border-radius: 5px;
+    margin-top: 20px;
+}
