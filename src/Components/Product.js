@@ -1,6 +1,8 @@
 import React,{useContext} from "react";
+import { Navigate } from "react-router-dom";
 import "./Product.css"
 import ProductConsumer from "../Context/ProductConsumer";
+import AuthContext from "../Context/AuthContext";
 
 const productsArr = [
   {
@@ -30,7 +32,13 @@ const productsArr = [
 
 const Product = () => {
 
+  let {isLogin}=useContext(AuthContext);
+
   let {handleCart}=useContext(ProductConsumer);
+
+  if (!isLogin) {
+    return <Navigate to="/" />;
+  }
 
   return(
     <div className="cardd">

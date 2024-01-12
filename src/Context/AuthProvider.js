@@ -1,19 +1,25 @@
 import React, { useState } from 'react'
-import ProductConsumer from './ProductConsumer'
+import AuthContext from './AuthContext';
 
 const AuthProvider = (props) => {
 
     const[isLogin,setIsLogin]=useState(false);
 
-    const initialToken="";
+    const initialToken=localStorage.getItem("token");
     const [token,setToken]=useState(initialToken);
+
+    const loginHandler=(token)=>{
+      setToken(token);
+      setIsLogin(true);
+      localStorage.setItem("token",token);
+    }
 
 
 
   return (
-    <ProductConsumer.Provider value={{setIsLogin,isLogin,token,setToken}}>
+    <AuthContext.Provider value={{setIsLogin,isLogin,token,loginHandler}}>
         {props.children}
-    </ProductConsumer.Provider>
+    </AuthContext.Provider>
   )
 }
 
