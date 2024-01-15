@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
 
-  let {setIsLogin,loginHandler}=useContext(AuthContext)
+  let {setIsLogin,loginHandler,inputEmail, setInputEmail}=useContext(AuthContext)
 
-  const [inputEmail, setInputEmail] = useState("");
+  // const [inputEmail, setInputEmail] = useState("");
   const [inputPass, setInputPass] = useState("");
   const [btn,setBtn]=useState({});
   const navigate = useNavigate();

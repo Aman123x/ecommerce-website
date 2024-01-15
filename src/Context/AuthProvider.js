@@ -4,6 +4,7 @@ import AuthContext from './AuthContext';
 const AuthProvider = (props) => {
 
     const[isLogin,setIsLogin]=useState(false);
+    const [inputEmail, setInputEmail] = useState("");
 
     const initialToken=localStorage.getItem("token");
     const [token,setToken]=useState(initialToken);
@@ -17,7 +18,7 @@ const AuthProvider = (props) => {
 
 
   return (
-    <AuthContext.Provider value={{setIsLogin,isLogin,token,loginHandler}}>
+    <AuthContext.Provider value={{setIsLogin,isLogin,token,loginHandler,inputEmail, setInputEmail}}>
         {props.children}
     </AuthContext.Provider>
   )

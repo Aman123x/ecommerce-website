@@ -1,0 +1,203 @@
+
+// // Product Provider
+
+// import { useContext, useEffect, useState } from "react";
+// import ProductConsumer from "./ProductConsumer"
+// import axios from "axios";
+// import AuthContext from "./AuthContext";
+
+// const ProductProvider=(props)=>{
+
+//     let {inputEmail}=useContext(AuthContext)
+
+//     const[cartItem,setCartItem]=useState([]);
+
+//     function handleCart(item){
+        
+//         const existingItem=cartItem.find((cartItem)=>cartItem.title===item.title);
+
+//         if(existingItem){
+//             const updateItem=cartItem.map((cartItem)=>(
+//                 cartItem.title===item.title?{...cartItem,quantity:cartItem.quantity+1}:cartItem
+//             ))
+//             setCartItem(updateItem);
+//         }
+//         else{
+//             setCartItem([...cartItem,{...item,quantity:1}])
+//         }
+
+//         // callCrudCrud(cartItem);
+//     }
+
+//     useEffect(()=>{
+//         callCrudCrud(cartItem);
+//     },[cartItem])
+
+//     async function callCrudCrud(cartItem){
+
+//         let newMail=inputEmail.replace(/[.@]/g, '');
+//         console.log(newMail);
+//         let cartData={
+//             cartItem:cartItem,
+//             newMail:newMail
+//         }
+
+//         try{
+//             const response=await axios.post("https://crudcrud.com/api/487c3cbffeb1433d8155c1c1b2bb441b/inventData",cartData);
+//         }
+//         catch(err){
+//             console.log(err);
+//         }
+//     }
+
+//     return(
+//         <ProductConsumer.Provider value={{cartItem,setCartItem,handleCart}}>
+//             {props.children}
+//         </ProductConsumer.Provider>
+//     )
+// }
+
+// export default ProductProvider;
+
+
+// // Cart
+
+// import React, { useContext, useEffect, useState } from "react";
+// import { Button, Modal } from "react-bootstrap";
+// import ProductConsumer from "../Context/ProductConsumer";
+// import "./Cart.css";
+// import axios from "axios";
+// import AuthContext from "../Context/AuthContext";
+
+// const Cart = () => {
+//   let { cartItem, setCartItem } = useContext(ProductConsumer);
+//   let {inputEmail,isLogin}=useContext(AuthContext);
+
+//   const [showModal, setShowModal] = useState(false);
+//   const [total,setTotal]=useState(0);
+
+//   const handleModalShow = () => {
+//     setShowModal(true);
+//   };
+
+//   const handleModalClose = () => {
+//     setShowModal(false);
+//   };
+
+//   useEffect(()=>{
+//     if(isLogin){
+//       showCartTotal()
+//     }
+//   },[cartItem])
+
+//   async function showCartTotal() {
+//     try {
+//       const response = await axios.get("https://crudcrud.com/api/487c3cbffeb1433d8155c1c1b2bb441b/inventData");
+  
+//       console.log(response.data);
+//       const newMail = inputEmail.replace(/[.@]/g, '');
+      
+//       let count = response.data
+//       .filter(item => item.newMail === newMail) // Filter items for the specific user
+//       .reduce((accu, item) => {
+//         // Use another reduce to calculate the total quantity for each user
+//         return accu + item.cartItem.reduce((accu2, cartItem) => accu2 + cartItem.quantity, 0);
+//       }, 0);
+
+//     setTotal(count);
+  
+//       console.log("Total cart items for the user:", total);
+//     } catch (err) {
+//       console.log(err);
+//     }
+//   }
+  
+
+//   const TotalCartItem = cartItem.reduce((accu, curr) => {
+//     accu += curr.quantity;
+//     return accu;
+//   }, 0);
+
+//   function increaseItem(ind) {
+//     setCartItem((prevItem) =>
+//       prevItem.map((item, index) =>
+//         index === ind ? { ...item, quantity: item.quantity + 1 } : item
+//       )
+//     );
+//   }
+
+//   function reduceItem(ind) {
+//     setCartItem((prevItem) =>
+//       prevItem
+//         .map((item, index) =>
+//           item.quantity > 0 && index === ind
+//             ? { ...item, quantity: item.quantity - 1 }
+//             : item
+//         )
+//         .filter((item) => item.quantity > 0)
+//     );
+//   }
+
+//   const TotalPrice = cartItem.reduce((accu, item) => {
+//     accu += item.quantity * item.price;
+//     return accu;
+//   }, 0);
+
+//   function handleAlert() {
+//     (TotalPrice !== 0) && window.alert("Thanks for purchasing with us!!!");
+//   }
+
+//   return (
+//     <div>
+//       <div className="cart-container">
+//         <div className="total-cart-item">{total}</div>
+//         <Button onClick={handleModalShow}>Cart</Button>
+//       </div>
+//       <Modal
+//         show={showModal}
+//         onHide={handleModalClose}
+//         dialogClassName="modal-right"
+//       >
+//         <Modal.Header closeButton>
+//           <Modal.Title>Shopping Cart</Modal.Title>
+//         </Modal.Header>
+//         <div className="heading">
+//           <p>Item</p>
+//           <p>Price</p>
+//           <p>Quantity</p>
+//           <p></p>
+//         </div>
+//         <Modal.Body>
+//           <div className="product-card">
+//             {cartItem &&
+//               cartItem.map((item, index) => (
+//                 <div className="product-child" key={index}>
+//                   <div className="product-child_image">
+//                     <img src={item.imageUrl} alt={item.title} />
+//                     <p>{item.title}</p>
+//                   </div>
+//                   <p>{item.price}</p>
+//                   <p>{item.quantity}</p>
+//                   <div className="btn">
+//                     <button onClick={() => reduceItem(index)}>-</button>
+//                     <button onClick={() => increaseItem(index)}>+</button>
+//                   </div>
+//                 </div>
+//               ))}
+//           </div>
+//         </Modal.Body>
+//         <h3 className="total">Total : $ {TotalPrice.toFixed(2)}</h3>
+//         <button onClick={handleAlert} className="purchase">
+//           Purchase
+//         </button>
+//         <Modal.Footer>
+//           <Button variant="secondary" onClick={handleModalClose}>
+//             Close
+//           </Button>
+//         </Modal.Footer>
+//       </Modal>
+//     </div>
+//   );
+// };
+
+// export default Cart;

@@ -1,12 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import ProductConsumer from "../Context/ProductConsumer";
 import "./Cart.css";
+import axios from "axios";
+import AuthContext from "../Context/AuthContext";
 
 const Cart = () => {
   let { cartItem, setCartItem } = useContext(ProductConsumer);
+  let {inputEmail,isLogin}=useContext(AuthContext);
 
   const [showModal, setShowModal] = useState(false);
+  const [total,setTotal]=useState(0);
 
   const handleModalShow = () => {
     setShowModal(true);
@@ -16,7 +20,39 @@ const Cart = () => {
     setShowModal(false);
   };
 
-  const TotalCartItem = cartItem.reduce((accu, curr) => {
+  useEffect(() => {
+    if (isLogin) {
+      showCartTotal();
+    }
+  }, [cartItem]);
+  
+  async function showCartTotal() {
+    try {
+      const response = await axios.get(
+        `https://crudcrud.com/api/d2b38faa5186400aba59c3f9f8f7d208/inventData?newMail=${inputEmail.replace(
+          /[.@]/g,
+          ""
+        )}`
+      );
+  
+      if (response.data && response.data.length > 0) {
+        const lastAddedEntry = response.data[response.data.length - 1];
+  
+        const count = lastAddedEntry.cartItem.reduce(
+          (accu, cartItem) => accu + cartItem.quantity,
+          0
+        );
+  
+        setTotal(count);
+        console.log("Total cart items for the user:", count);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+  
+
+  const TotalCartItem = (cartItem ?? []).reduce((accu, curr) => {
     accu += curr.quantity;
     return accu;
   }, 0);
@@ -41,7 +77,7 @@ const Cart = () => {
     );
   }
 
-  const TotalPrice = cartItem.reduce((accu, item) => {
+  const TotalPrice = (cartItem ?? []).reduce((accu, item) => {
     accu += item.quantity * item.price;
     return accu;
   }, 0);
@@ -53,7 +89,7 @@ const Cart = () => {
   return (
     <div>
       <div className="cart-container">
-        <div className="total-cart-item">{TotalCartItem}</div>
+        <div className="total-cart-item">{total}</div>
         <Button onClick={handleModalShow}>Cart</Button>
       </div>
       <Modal
